@@ -70,7 +70,8 @@ public class NoteSpawner : MonoBehaviour
         noteObject.transform.SetParent(lanePositions[note.lane]);
 
         // Set the local position of the note to (0, 0, 1)
-        noteObject.transform.localPosition = new Vector3(0, 1.2f, 6);
+        noteObject.transform.localPosition = new Vector3(0, 1.2f, 6); // base on current scene lane position and size...
+        
         noteObject.transform.localRotation = Quaternion.identity;
 
         // Initialize the NoteMovement script
