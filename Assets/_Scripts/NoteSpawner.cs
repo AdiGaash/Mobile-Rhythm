@@ -7,7 +7,6 @@ public class NoteSpawner : MonoBehaviour
 {
     public AudioSource musicSource;                  // Audio playing the song
     public TextAsset beatmapFile;                    // JSON file with note data
-    float spawnAheadTime = 2.0f;              // How early to spawn notes (in seconds) so player should hit after that time
     public GameObject tapNotePrefab;                 // Prefab for "tap" notes
     public GameObject holdNotePrefab;                // Prefab for "hold" notes
     public GameObject swipeNotePrefab;               // Prefab for "swipe" notes
@@ -46,8 +45,29 @@ public class NoteSpawner : MonoBehaviour
 
     void Start()
     {
-        // Parse the beatmap JSON file into a list of notes
-        beatmap = BeatmapLoader.LoadFromJson(beatmapFile.text);
+        // Parse the beatmap JSON file into a BeatmapWrapper
+        BeatmapWrapper beatmapWrapper = BeatmapLoader.LoadFromJson(beatmapFile.text);
+
+        // Get the difficulty level from the LevelManager
+        Difficulty difficulty = LevelManager.Instance.levelSettings.difficulty;
+
+        // Populate the beatmap list based on the difficulty level
+        switch (difficulty)
+        {
+            case Difficulty.Easy:
+                beatmap.AddRange(beatmapWrapper.easyNotes);
+                break;
+            case Difficulty.Medium:
+                beatmap.AddRange(beatmapWrapper.easyNotes);
+                beatmap.AddRange(beatmapWrapper.mediumNotes);
+                break;
+            case Difficulty.Hard:
+                beatmap.AddRange(beatmapWrapper.easyNotes);
+                beatmap.AddRange(beatmapWrapper.mediumNotes);
+                beatmap.AddRange(beatmapWrapper.hardNotes);
+                break;
+        }
+
         musicSource.Play(); // Start the music
     }
 

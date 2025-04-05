@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LevelManager : SingletonMonoBehaviour<LevelManager>
 {
     public LevelSettings levelSettings;
+    public SongData currentSongData;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

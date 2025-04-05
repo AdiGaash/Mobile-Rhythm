@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ed5ff7092ff41e2a604f027a24b8bde, type: 3}
-  m_Name: Level 2 Settings
+  m_Script: {fileID: 11500000, guid: 6b7a08377cf142a6a6adfdc35924b873, type: 3}
+  m_Name: SongData
   m_EditorClassIdentifier: 
-  spawnAheadTime: 1.5
-  difficulty: 1
+  songName: 
+  songAudio: {fileID: 0}
+  songImage: {fileID: 0}
+  beatmapWrapperJson: {fileID: 0}

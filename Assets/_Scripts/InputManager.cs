@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class InputManager : MonoBehaviour
 {
     public float perfectWindow = 0.1f; // +/- 0.1s
     public float goodWindow = 0.25f;   // +/- 0.25s
-
     public Camera mainCamera; // Needed for raycasting from touch
+    public GUIManager guiManager; // Reference to the GUIManager
 
     void Update()
     {
@@ -39,10 +38,12 @@ public class InputManager : MonoBehaviour
                 if (offset <= perfectWindow)
                 {
                     Debug.Log("Perfect!");
+                    guiManager.AddScore(note.scoreValue * 2); // Double score for perfect hit
                 }
                 else if (offset <= goodWindow)
                 {
                     Debug.Log("Good!");
+                    guiManager.AddScore(note.scoreValue); // Normal score for good hit
                 }
                 else
                 {

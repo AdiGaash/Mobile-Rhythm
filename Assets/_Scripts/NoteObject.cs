@@ -6,6 +6,7 @@ public class NoteObject : MonoBehaviour
     public float timeToHit; // When this note should be hit (in song time)
     public int lane;        // Which lane this note belongs to
     public bool isHit = false;
+    public int scoreValue = 1;
 
     public float moveSpeed = 5f; // For simple downward movement
     private ObjectPool<GameObject> pool;
