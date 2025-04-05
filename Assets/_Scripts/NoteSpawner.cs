@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections.Generic;
@@ -6,11 +7,13 @@ public class NoteSpawner : MonoBehaviour
 {
     public AudioSource musicSource;                  // Audio playing the song
     public TextAsset beatmapFile;                    // JSON file with note data
-    public float spawnAheadTime = 2.0f;              // How early to spawn notes (in seconds)
+    float spawnAheadTime = 2.0f;              // How early to spawn notes (in seconds) so player should hit after that time
     public GameObject tapNotePrefab;                 // Prefab for "tap" notes
     public GameObject holdNotePrefab;                // Prefab for "hold" notes
     public GameObject swipeNotePrefab;               // Prefab for "swipe" notes
     public Transform[] lanePositions;                // Each lane's position (based on index)
+    public Vector3 noteStartLocalPosition = new Vector3(0, 1.2f, 1); // Start local position of the note
+    public Vector3 noteEndLocalPosition = new Vector3(0, -1.2f, 1);  // End local position of the note
 
     private List<NoteData> beatmap = new List<NoteData>();
     private int nextNoteIndex = 0;
@@ -19,12 +22,8 @@ public class NoteSpawner : MonoBehaviour
     private ObjectPool<GameObject> holdNotePool;
     private ObjectPool<GameObject> swipeNotePool;
 
-    void Start()
+    private void Awake()
     {
-        // Parse the beatmap JSON file into a list of notes
-        beatmap = BeatmapLoader.LoadFromJson(beatmapFile.text);
-        musicSource.Play(); // Start the music
-
         // Initialize object pools
         tapNotePool = new ObjectPool<GameObject>(() => {
             GameObject note = Instantiate(tapNotePrefab);
@@ -45,13 +44,20 @@ public class NoteSpawner : MonoBehaviour
         }, note => note.SetActive(true), note => note.SetActive(false));
     }
 
+    void Start()
+    {
+        // Parse the beatmap JSON file into a list of notes
+        beatmap = BeatmapLoader.LoadFromJson(beatmapFile.text);
+        musicSource.Play(); // Start the music
+    }
+
     void Update()
     {
         float songTime = musicSource.time;
 
         // Spawn all upcoming notes that are within the spawnAheadTime
         while (nextNoteIndex < beatmap.Count &&
-               beatmap[nextNoteIndex].time - songTime <= spawnAheadTime)
+               beatmap[nextNoteIndex].time - songTime <= LevelManager.Instance.levelSettings.spawnAheadTime)
         {
             SpawnNote(beatmap[nextNoteIndex]);
             nextNoteIndex++;
@@ -84,20 +90,15 @@ public class NoteSpawner : MonoBehaviour
         // Set the parent of the note to the lane's transform
         noteObject.transform.SetParent(lanePositions[note.lane]);
 
-        // Set the local position of the note to (0, 0, 1)
-        float spawnZPosition = (note.type == "hold") ? 6 + (note.duration / 2) : 1;
-        noteObject.transform.localPosition = new Vector3(0, 1.2f, spawnZPosition); // base on current scene lane position and size...
-
-        // Adjust the scale for hold notes based on the duration
-        if (note.type == "hold")
-        {
-            Vector3 scale = noteObject.transform.localScale;
-            noteObject.transform.localScale = new Vector3(scale.x, scale.y, note.duration);
-        }
+        // Set the local position of the note to the start position
+        noteObject.transform.localPosition = noteStartLocalPosition;
 
         // Set the note's properties
         NoteObject noteObjectScript = noteObject.GetComponent<NoteObject>();
         noteObjectScript.timeToHit = note.time;
         noteObjectScript.lane = note.lane;
+        noteObjectScript.startLocalPosition = noteStartLocalPosition;
+        noteObjectScript.endLocalPosition = noteEndLocalPosition;
+        noteObjectScript.spawnAheadTime = LevelManager.Instance.levelSettings.spawnAheadTime;
     }
 }

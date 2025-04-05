@@ -3,5 +3,7 @@
 [System.Serializable]
 public class BeatmapWrapper
 {
-    public List<NoteData> notes;
+    public List<NoteData> easyNotes;
+    public List<NoteData> mediumNotes;
+    public List<NoteData> hardNotes;
 }
