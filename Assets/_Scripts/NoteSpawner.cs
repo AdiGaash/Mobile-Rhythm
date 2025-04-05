@@ -26,9 +26,23 @@ public class NoteSpawner : MonoBehaviour
         musicSource.Play(); // Start the music
 
         // Initialize object pools
-        tapNotePool = new ObjectPool<GameObject>(() => Instantiate(tapNotePrefab), note => note.SetActive(true), note => note.SetActive(false));
-        holdNotePool = new ObjectPool<GameObject>(() => Instantiate(holdNotePrefab), note => note.SetActive(true), note => note.SetActive(false));
-        swipeNotePool = new ObjectPool<GameObject>(() => Instantiate(swipeNotePrefab), note => note.SetActive(true), note => note.SetActive(false));
+        tapNotePool = new ObjectPool<GameObject>(() => {
+            GameObject note = Instantiate(tapNotePrefab);
+            note.GetComponent<NoteObject>().Initialize(tapNotePool);
+            return note;
+        }, note => note.SetActive(true), note => note.SetActive(false));
+
+        holdNotePool = new ObjectPool<GameObject>(() => {
+            GameObject note = Instantiate(holdNotePrefab);
+            note.GetComponent<NoteObject>().Initialize(holdNotePool);
+            return note;
+        }, note => note.SetActive(true), note => note.SetActive(false));
+
+        swipeNotePool = new ObjectPool<GameObject>(() => {
+            GameObject note = Instantiate(swipeNotePrefab);
+            note.GetComponent<NoteObject>().Initialize(swipeNotePool);
+            return note;
+        }, note => note.SetActive(true), note => note.SetActive(false));
     }
 
     void Update()
@@ -43,6 +57,7 @@ public class NoteSpawner : MonoBehaviour
             nextNoteIndex++;
         }
     }
+
     void SpawnNote(NoteData note)
     {
         ObjectPool<GameObject> poolToUse = null;
@@ -70,19 +85,19 @@ public class NoteSpawner : MonoBehaviour
         noteObject.transform.SetParent(lanePositions[note.lane]);
 
         // Set the local position of the note to (0, 0, 1)
-        
-        float spawnZPosition = (note.type == "hold") ? 6+(note.duration/2) : 6;
+        float spawnZPosition = (note.type == "hold") ? 6 + (note.duration / 2) : 1;
         noteObject.transform.localPosition = new Vector3(0, 1.2f, spawnZPosition); // base on current scene lane position and size...
 
         // Adjust the scale for hold notes based on the duration
         if (note.type == "hold")
         {
             Vector3 scale = noteObject.transform.localScale;
-            noteObject.transform.localScale = new Vector3(scale.x,scale.y*note.duration,scale.z);
+            noteObject.transform.localScale = new Vector3(scale.x, scale.y, note.duration);
         }
 
-        // Initialize the NoteMovement script
-        NoteMovement noteMovement = noteObject.GetComponent<NoteMovement>();
-        noteMovement.Initialize(poolToUse);
+        // Set the note's properties
+        NoteObject noteObjectScript = noteObject.GetComponent<NoteObject>();
+        noteObjectScript.timeToHit = note.time;
+        noteObjectScript.lane = note.lane;
     }
 }

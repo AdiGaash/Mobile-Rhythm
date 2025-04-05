@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class NoteObject : MonoBehaviour
 {
@@ -7,17 +8,23 @@ public class NoteObject : MonoBehaviour
     public bool isHit = false;
 
     public float moveSpeed = 5f; // For simple downward movement
+    private ObjectPool<GameObject> pool;
+
+    public void Initialize(ObjectPool<GameObject> pool)
+    {
+        this.pool = pool;
+    }
 
     void Update()
     {
         // Move down over time (just an example movement)
         transform.Translate(Vector3.down * moveSpeed * Time.deltaTime);
 
-        // Optional: destroy if off-screen or too late
+        // Optional: return to pool if off-screen or too late
         if (!isHit && timeToHit - MusicManager.Instance.songTime < -0.5f)
         {
             Debug.Log("Missed note!");
-            Destroy(gameObject);
+            pool.Release(gameObject);
         }
     }
 
@@ -30,6 +37,6 @@ public class NoteObject : MonoBehaviour
     {
         isHit = true;
         Debug.Log("Note hit!");
-        Destroy(gameObject);
+        pool.Release(gameObject);
     }
 }

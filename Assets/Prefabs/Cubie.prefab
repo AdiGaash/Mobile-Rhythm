@@ -66,6 +66,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 246fb11fab76bc041a0f4c7e7a6cf407, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6285027475403283529}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 246fb11fab76bc041a0f4c7e7a6cf407, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1470909915102738530}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 246fb11fab76bc041a0f4c7e7a6cf407, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6096401430244588844}
   m_SourcePrefab: {fileID: 100100000, guid: 246fb11fab76bc041a0f4c7e7a6cf407, type: 3}
 --- !u!1 &2573013051975258517 stripped
 GameObject:
@@ -111,3 +117,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+--- !u!114 &-1470909915102738530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2573013051975258517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f327ba41c371313408828fbac6bba19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToHit: 0
+  lane: 0
+  isHit: 0
+  moveSpeed: 5
+--- !u!64 &-6096401430244588844
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2573013051975258517}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7235844460804450719, guid: 246fb11fab76bc041a0f4c7e7a6cf407, type: 3}
