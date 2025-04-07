@@ -8,7 +8,7 @@ public class NoteObject : MonoBehaviour
     public bool isHit = false;
     public int scoreValue = 1;
 
-    public float moveSpeed = 5f; // For simple downward movement
+    
     private ObjectPool<GameObject> pool;
 
     public Vector3 startLocalPosition; // Start local position of the note
@@ -23,15 +23,20 @@ public class NoteObject : MonoBehaviour
     void Update()
     {
         float songTime = MusicManager.Instance.songTime;
-        float t = Mathf.Clamp01((spawnAheadTime - (timeToHit - songTime)) / spawnAheadTime);
-        transform.localPosition = Vector3.Lerp(startLocalPosition, endLocalPosition, t);
-
-        // Optional: return to pool if off-screen or too late
+        
+        // return to pool if off-screen or too late
         if (!isHit && timeToHit - songTime < -0.5f)
         {
             Debug.Log("Missed note!");
             pool.Release(gameObject);
+            return;
         }
+        
+        float t = Mathf.Clamp01((spawnAheadTime - (timeToHit - songTime)) / spawnAheadTime);
+        transform.localPosition = Vector3.Lerp(startLocalPosition, endLocalPosition, t);
+
+       
+        
     }
 
     public float TimeOffset()

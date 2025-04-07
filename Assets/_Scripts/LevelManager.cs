@@ -1,22 +1,12 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LevelManager : SingletonMonoBehaviour<LevelManager>
 {
-    public LevelSettings levelSettings;
-    public SongData currentSongData;
-    
+    public SongData currentSongData; // Reference to the current SongData
+    public LevelSettings levelSettings; // Assuming you have a LevelSettings class
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Example usage of levelSettings
-        Debug.Log("Spawn Ahead Time: " + levelSettings.spawnAheadTime);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        // Initialize or load the currentSongData as needed
     }
 }

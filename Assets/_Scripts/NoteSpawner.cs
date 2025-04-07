@@ -1,11 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections.Generic;
 
 public class NoteSpawner : MonoBehaviour
 {
-    public AudioSource musicSource;                  // Audio playing the song
     public TextAsset beatmapFile;                    // JSON file with note data
     public GameObject tapNotePrefab;                 // Prefab for "tap" notes
     public GameObject holdNotePrefab;                // Prefab for "hold" notes
@@ -28,19 +26,28 @@ public class NoteSpawner : MonoBehaviour
             GameObject note = Instantiate(tapNotePrefab);
             note.GetComponent<NoteObject>().Initialize(tapNotePool);
             return note;
-        }, note => note.SetActive(true), note => note.SetActive(false));
+        }, note => note.SetActive(true), note => {
+            note.SetActive(false);
+            note.transform.SetParent(this.transform);
+        });
 
         holdNotePool = new ObjectPool<GameObject>(() => {
             GameObject note = Instantiate(holdNotePrefab);
             note.GetComponent<NoteObject>().Initialize(holdNotePool);
             return note;
-        }, note => note.SetActive(true), note => note.SetActive(false));
+        }, note => note.SetActive(true), note => {
+            note.SetActive(false);
+            note.transform.SetParent(this.transform);
+        });
 
         swipeNotePool = new ObjectPool<GameObject>(() => {
             GameObject note = Instantiate(swipeNotePrefab);
             note.GetComponent<NoteObject>().Initialize(swipeNotePool);
             return note;
-        }, note => note.SetActive(true), note => note.SetActive(false));
+        }, note => note.SetActive(true), note => {
+            note.SetActive(false);
+            note.transform.SetParent(this.transform);
+        });
     }
 
     void Start()
@@ -67,20 +74,27 @@ public class NoteSpawner : MonoBehaviour
                 beatmap.AddRange(beatmapWrapper.hardNotes);
                 break;
         }
-
-        musicSource.Play(); // Start the music
     }
 
     void Update()
     {
-        float songTime = musicSource.time;
-
-        // Spawn all upcoming notes that are within the spawnAheadTime
-        while (nextNoteIndex < beatmap.Count &&
-               beatmap[nextNoteIndex].time - songTime <= LevelManager.Instance.levelSettings.spawnAheadTime)
+        if (MusicManager.Instance.initialized)
         {
-            SpawnNote(beatmap[nextNoteIndex]);
-            nextNoteIndex++;
+            float songTime = MusicManager.Instance.musicSource.time;
+            // Spawn all upcoming notes that are within the spawnAheadTime
+            while (nextNoteIndex < beatmap.Count &&
+                   beatmap[nextNoteIndex].time - songTime <= LevelManager.Instance.levelSettings.spawnAheadTime)
+            {
+                // Skip notes that have already passed their time
+                if (beatmap[nextNoteIndex].time < songTime)
+                {
+                    nextNoteIndex++;
+                    continue;
+                }
+
+                SpawnNote(beatmap[nextNoteIndex]);
+                nextNoteIndex++;
+            }
         }
     }
 

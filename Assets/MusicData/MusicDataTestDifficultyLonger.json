@@ -1,0 +1,46 @@
+﻿{
+  "easyNotes": [
+    { "time": 1.0, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 2.5, "type": "tap", "lane": 1, "duration": 0 },
+    { "time": 4.0, "type": "hold", "lane": 2, "duration": 1.5 },
+    { "time": 6.0, "type": "swipe", "lane": 3, "duration": 0 },
+    { "time": 7.5, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 9.0, "type": "tap", "lane": 1, "duration": 0 },
+    { "time": 10.5, "type": "hold", "lane": 2, "duration": 1.5 },
+    { "time": 12.0, "type": "swipe", "lane": 3, "duration": 0 },
+    { "time": 13.5, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 15.0, "type": "tap", "lane": 1, "duration": 0 }
+  ],
+  "mediumNotes": [
+    { "time": 1.0, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 2.0, "type": "tap", "lane": 1, "duration": 0 },
+    { "time": 3.0, "type": "hold", "lane": 2, "duration": 2.0 },
+    { "time": 5.0, "type": "swipe", "lane": 3, "duration": 0 },
+    { "time": 7.0, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 8.0, "type": "tap", "lane": 1, "duration": 0 },
+    { "time": 9.0, "type": "hold", "lane": 2, "duration": 2.0 },
+    { "time": 11.0, "type": "swipe", "lane": 3, "duration": 0 },
+    { "time": 13.0, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 14.0, "type": "tap", "lane": 1, "duration": 0 },
+    { "time": 15.0, "type": "hold", "lane": 2, "duration": 2.0 },
+    { "time": 17.0, "type": "swipe", "lane": 3, "duration": 0 }
+  ],
+  "hardNotes": [
+    { "time": 0.5, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 1.5, "type": "tap", "lane": 1, "duration": 0 },
+    { "time": 2.5, "type": "hold", "lane": 2, "duration": 2.5 },
+    { "time": 4.5, "type": "swipe", "lane": 3, "duration": 0 },
+    { "time": 6.5, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 8.0, "type": "hold", "lane": 1, "duration": 1.0 },
+    { "time": 9.5, "type": "swipe", "lane": 2, "duration": 0 },
+    { "time": 11.0, "type": "tap", "lane": 3, "duration": 0 },
+    { "time": 12.5, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 14.0, "type": "hold", "lane": 1, "duration": 2.0 },
+    { "time": 16.0, "type": "swipe", "lane": 2, "duration": 0 },
+    { "time": 18.0, "type": "tap", "lane": 3, "duration": 0 },
+    { "time": 19.5, "type": "tap", "lane": 0, "duration": 0 },
+    { "time": 21.0, "type": "hold", "lane": 1, "duration": 1.5 },
+    { "time": 22.5, "type": "swipe", "lane": 2, "duration": 0 },
+    { "time": 24.0, "type": "tap", "lane": 3, "duration": 0 }
+  ]
+}

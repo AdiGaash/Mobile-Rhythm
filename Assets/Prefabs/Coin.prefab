@@ -61,9 +61,6 @@ PrefabInstance:
       addedObject: {fileID: 6918556219583511552}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7545b41dcb5e9bc429013a8c2378c942, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1347781501337028635}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7545b41dcb5e9bc429013a8c2378c942, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2070012449876007737}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7545b41dcb5e9bc429013a8c2378c942, type: 3}
       insertIndex: -1
@@ -100,19 +97,6 @@ MonoBehaviour:
   isScaling: 1
   useEasingForScaling: 1
   scaleLerpSpeed: 1.11
---- !u!114 &-1347781501337028635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6954758372675618198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 277d525dd3a24c62acd9ec684ee4ed4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
 --- !u!114 &2070012449876007737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +112,11 @@ MonoBehaviour:
   timeToHit: 0
   lane: 0
   isHit: 0
+  scoreValue: 1
   moveSpeed: 5
+  startLocalPosition: {x: 0, y: 0, z: 0}
+  endLocalPosition: {x: 0, y: 0, z: 0}
+  spawnAheadTime: 0
 --- !u!64 &-1911674700026852845
 MeshCollider:
   m_ObjectHideFlags: 0
