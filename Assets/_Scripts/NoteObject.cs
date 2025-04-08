@@ -31,10 +31,8 @@ public class NoteObject : MonoBehaviour
         
         t = Mathf.Clamp01(t); // Ensure t is clamped between 0 and 1
 
-        Debug.Log($"songTime: {songTime}, timeToHit: {timeToHit}, spawnAheadTime: {spawnAheadTime}, t: {t}");
         // Update the local position of the note
         transform.localPosition = Vector3.Lerp(startLocalPosition, endLocalPosition, t);
-       
         
         // Return to pool if off-screen or too late
         if ( t >= 1)
@@ -42,8 +40,6 @@ public class NoteObject : MonoBehaviour
             Debug.Log("Missed note!");
             pool.Release(gameObject);
         }
-        
-        
     }
 
     public float TimeOffset()
@@ -63,11 +59,6 @@ public class NoteObject : MonoBehaviour
         if (pool != null)
         {
             pool.Release(gameObject);
-        }
-        else
-        {
-            Debug.LogWarning("Object pool is not assigned!");
-            Destroy(gameObject); // Fallback if no pool is assigned
         }
     }
 }
