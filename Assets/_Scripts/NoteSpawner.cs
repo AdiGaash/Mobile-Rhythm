@@ -9,8 +9,8 @@ public class NoteSpawner : MonoBehaviour
     public GameObject holdNotePrefab;                // Prefab for "hold" notes
     public GameObject swipeNotePrefab;               // Prefab for "swipe" notes
     public Transform[] lanePositions;                // Each lane's position (based on index)
-    public Vector3 noteStartLocalPosition = new Vector3(0, 1.2f, 1); // Start local position of the note
-    public Vector3 noteEndLocalPosition = new Vector3(0, -1.2f, 1);  // End local position of the note
+    public Vector3 noteStartLocalPosition = new Vector3(0, 1, 1.2f); // Start local position of the note
+    public Vector3 noteEndLocalPosition = new Vector3(0, 1, -1.2f);  // End local position of the note
 
     private List<GameNoteData> beatmap = new List<GameNoteData>();
     private int nextNoteIndex = 0;
@@ -52,6 +52,7 @@ public class NoteSpawner : MonoBehaviour
 
     void Start()
     {
+        beatmapFile = LevelManager.Instance.currentSongData.beatmapWrapperJson;
         // Parse the beatmap JSON file into a BeatmapWrapper
         BeatmapWrapper beatmapWrapper = BeatmapLoader.LoadFromJson(beatmapFile.text);
 
@@ -74,25 +75,38 @@ public class NoteSpawner : MonoBehaviour
                 beatmap.AddRange(beatmapWrapper.hardNotes);
                 break;
         }
+        
+        // Sort the beatmap by note time
+        beatmap.Sort((note1, note2) => note1.time.CompareTo(note2.time));
     }
 
     void Update()
     {
-        if (MusicManager.Instance.initialized)
-        {
-            float songTime = MusicManager.Instance.musicSource.time;
-            // Spawn all upcoming notes that are within the spawnAheadTime
-            while (nextNoteIndex < beatmap.Count &&
-                   beatmap[nextNoteIndex].time - songTime <= LevelManager.Instance.levelSettings.spawnAheadTime)
-            {
-                // Skip notes that have already passed their time
-                if (beatmap[nextNoteIndex].time < songTime)
-                {
-                    nextNoteIndex++;
-                    continue;
-                }
+        if (!MusicManager.Instance.initialized) return;
 
+        float songTime = MusicManager.Instance.musicSource.time;
+
+        // Spawn only the note that might be late to spawn on the next frame
+        while (nextNoteIndex < beatmap.Count)
+        {
+            float noteSpawnTime = beatmap[nextNoteIndex].time - LevelManager.Instance.levelSettings.spawnAheadTime;
+
+            if (noteSpawnTime <= songTime && noteSpawnTime > songTime - Time.deltaTime)
+            {
+                // Spawn the note
+                Debug.Log("Spawning late note");
                 SpawnNote(beatmap[nextNoteIndex]);
+                nextNoteIndex++;
+            }
+            else if (noteSpawnTime > songTime)
+            {
+                // Stop processing further notes if the next note is not yet ready to spawn
+                break;
+            }
+            else
+            {
+                // Skip notes that are already too late
+                Debug.Log("Skipping missed note");
                 nextNoteIndex++;
             }
         }
@@ -134,5 +148,7 @@ public class NoteSpawner : MonoBehaviour
         noteObjectScript.startLocalPosition = noteStartLocalPosition;
         noteObjectScript.endLocalPosition = noteEndLocalPosition;
         noteObjectScript.spawnAheadTime = LevelManager.Instance.levelSettings.spawnAheadTime;
+        
+        Debug.Log("spawning note!");
     }
 }

@@ -12,4 +12,5 @@ public class LevelSettings : ScriptableObject
 {
     public float spawnAheadTime = 2.0f;
     public Difficulty difficulty;
+    public int numOfLanes = 4; // Default number of lanes
 }

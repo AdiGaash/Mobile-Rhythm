@@ -23,19 +23,26 @@ public class NoteObject : MonoBehaviour
     void Update()
     {
         float songTime = MusicManager.Instance.songTime;
+
         
-        // return to pool if off-screen or too late
-        if (!isHit && timeToHit - songTime < -0.5f)
+      
+        float t = (songTime - (timeToHit - spawnAheadTime)) / spawnAheadTime;
+        
+        
+        t = Mathf.Clamp01(t); // Ensure t is clamped between 0 and 1
+
+        Debug.Log($"songTime: {songTime}, timeToHit: {timeToHit}, spawnAheadTime: {spawnAheadTime}, t: {t}");
+        // Update the local position of the note
+        transform.localPosition = Vector3.Lerp(startLocalPosition, endLocalPosition, t);
+       
+        
+        // Return to pool if off-screen or too late
+        if (!isHit && t >= 1)
         {
             Debug.Log("Missed note!");
             pool.Release(gameObject);
-            return;
         }
         
-        float t = Mathf.Clamp01((spawnAheadTime - (timeToHit - songTime)) / spawnAheadTime);
-        transform.localPosition = Vector3.Lerp(startLocalPosition, endLocalPosition, t);
-
-       
         
     }
 
