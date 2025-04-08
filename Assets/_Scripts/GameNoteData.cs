@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class NoteData {
+public class GameNoteData {
     public float time;
     public string type; // tap, hold, swipe
     public int lane;

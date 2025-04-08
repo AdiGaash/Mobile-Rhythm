@@ -12,7 +12,7 @@ public class NoteSpawner : MonoBehaviour
     public Vector3 noteStartLocalPosition = new Vector3(0, 1.2f, 1); // Start local position of the note
     public Vector3 noteEndLocalPosition = new Vector3(0, -1.2f, 1);  // End local position of the note
 
-    private List<NoteData> beatmap = new List<NoteData>();
+    private List<GameNoteData> beatmap = new List<GameNoteData>();
     private int nextNoteIndex = 0;
 
     private ObjectPool<GameObject> tapNotePool;
@@ -98,12 +98,12 @@ public class NoteSpawner : MonoBehaviour
         }
     }
 
-    void SpawnNote(NoteData note)
+    void SpawnNote(GameNoteData gameNote)
     {
         ObjectPool<GameObject> poolToUse = null;
 
         // Choose the correct pool based on the note type
-        switch (note.type)
+        switch (gameNote.type)
         {
             case "tap":
                 poolToUse = tapNotePool;
@@ -116,21 +116,21 @@ public class NoteSpawner : MonoBehaviour
                 break;
         }
 
-        if (poolToUse == null || note.lane >= lanePositions.Length) return;
+        if (poolToUse == null || gameNote.lane >= lanePositions.Length) return;
 
         // Get the note from the pool
         GameObject noteObject = poolToUse.Get();
 
         // Set the parent of the note to the lane's transform
-        noteObject.transform.SetParent(lanePositions[note.lane]);
+        noteObject.transform.SetParent(lanePositions[gameNote.lane]);
 
         // Set the local position of the note to the start position
         noteObject.transform.localPosition = noteStartLocalPosition;
 
         // Set the note's properties
         NoteObject noteObjectScript = noteObject.GetComponent<NoteObject>();
-        noteObjectScript.timeToHit = note.time;
-        noteObjectScript.lane = note.lane;
+        noteObjectScript.timeToHit = gameNote.time;
+        noteObjectScript.lane = gameNote.lane;
         noteObjectScript.startLocalPosition = noteStartLocalPosition;
         noteObjectScript.endLocalPosition = noteEndLocalPosition;
         noteObjectScript.spawnAheadTime = LevelManager.Instance.levelSettings.spawnAheadTime;
