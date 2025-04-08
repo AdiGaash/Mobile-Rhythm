@@ -37,7 +37,7 @@ public class NoteObject : MonoBehaviour
        
         
         // Return to pool if off-screen or too late
-        if (!isHit && t >= 1)
+        if ( t >= 1)
         {
             Debug.Log("Missed note!");
             pool.Release(gameObject);
@@ -53,8 +53,21 @@ public class NoteObject : MonoBehaviour
 
     public void Hit()
     {
+        if (isHit) return; // Prevent multiple hits
         isHit = true;
+
+        // Perform any additional logic for when the note is hit
         Debug.Log("Note hit!");
-        pool.Release(gameObject);
+
+        // Release the note back to the pool
+        if (pool != null)
+        {
+            pool.Release(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("Object pool is not assigned!");
+            Destroy(gameObject); // Fallback if no pool is assigned
+        }
     }
 }

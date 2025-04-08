@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed5ff7092ff41e2a604f027a24b8bde, type: 3}
   m_Name: Level 2 Settings
   m_EditorClassIdentifier: 
-  spawnAheadTime: 2
+  spawnAheadTime: 4
   difficulty: 2
   numOfLanes: 4
