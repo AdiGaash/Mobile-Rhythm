@@ -7,11 +7,13 @@ public class LevelManager : SingletonMonoBehaviour<LevelManager>
     public LevelSettings levelSettings; // Assuming you have a LevelSettings class
     public Transform NoteLaneParent; 
     public GameObject lanePrefab;
+    public MusicNotesSpawner MusicNotesSpawner;
 
-    void Start()
+    void Awake()
     {
         // Initialize or load the currentSongData as needed
         CreateNoteslanes();
+        MusicNotesSpawner.gameObject.SetActive(true);
     }
 
     public void CreateNoteslanes()

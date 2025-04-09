@@ -284,10 +284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6c8f9e308e1634c8fa75ffee0149c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSongData: {fileID: 11400000, guid: 58b9c5b9c1c596a488c9258ed54cca46, type: 2}
+  currentSongData: {fileID: 11400000, guid: 0b8eb6f315e1d7045a7dfc408fae9f90, type: 2}
   levelSettings: {fileID: 11400000, guid: 2d60df68af4520d42935c096b02f9189, type: 2}
   NoteLaneParent: {fileID: 765332322}
   lanePrefab: {fileID: 615778097672510780, guid: afb9fdeee915f0e4994d7da02fbe376c, type: 3}
+  MusicNotesSpawner: {fileID: 395768833}
 --- !u!1 &355046429
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,36 +435,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 395768832}
-  - component: {fileID: 395768831}
+  - component: {fileID: 395768833}
   m_Layer: 0
   m_Name: NoteManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &395768831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395768830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949c533294be9434caa416c97e708104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beatmapFile: {fileID: 0}
-  tapNotePrefab: {fileID: 543725697735843016, guid: 32bf728d8f9573046a5d214df1ad602d, type: 3}
-  holdNotePrefab: {fileID: 519974796596659617, guid: 3c4bd763160a6f744a554e14ac2f8e0d, type: 3}
-  swipeNotePrefab: {fileID: 5225455176718880169, guid: a6ac2ecb653f4a7458fafcda4f65890e, type: 3}
-  lanePositions:
-  - {fileID: 61511985}
-  - {fileID: 1066926015}
-  - {fileID: 1955186548}
-  noteStartLocalPosition: {x: 0, y: 1, z: 5}
-  noteEndLocalPosition: {x: 0, y: 1, z: -5}
+  m_IsActive: 0
 --- !u!4 &395768832
 Transform:
   m_ObjectHideFlags: 0
@@ -479,6 +458,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 935953136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &395768833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395768830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa971bb88644fa48d891e14bd906b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tapNotePrefab: {fileID: 543725697735843016, guid: 32bf728d8f9573046a5d214df1ad602d, type: 3}
+  holdNotePrefab: {fileID: 519974796596659617, guid: 3c4bd763160a6f744a554e14ac2f8e0d, type: 3}
+  noteStartLocalPosition: {x: 0, y: 1, z: 5}
+  noteEndLocalPosition: {x: 0, y: 1, z: -5}
 --- !u!1 &418500908
 GameObject:
   m_ObjectHideFlags: 0

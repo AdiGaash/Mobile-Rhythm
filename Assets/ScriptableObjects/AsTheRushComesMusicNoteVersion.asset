@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7a08377cf142a6a6adfdc35924b873, type: 3}
+  m_Name: AsTheRushComesMusicNoteVersion
+  m_EditorClassIdentifier: 
+  songName: As The Rush Comes
+  songAudio: {fileID: 8300000, guid: 319d9f7b75ba34143aa1ae1eff4d82d6, type: 3}
+  songImage: {fileID: 21300000, guid: 99aa1cb742efde943a01c315e2e86bd2, type: 3}
+  beatmapWrapperJson: {fileID: 4900000, guid: 89efd4e472766d845a1525a58bb7b1d8, type: 3}
